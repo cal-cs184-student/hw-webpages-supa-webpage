@@ -62,7 +62,7 @@
 			<li>Use the line check to see if each point is inside or outside the line.</li>
 			<li>If the point is inside every line OR outside every line OR on the line, fill the pixel with color</li>
 		</ol>
-		<br/>
+		<hr/>
 
 		Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. The bounding box of the triangle is defined as the smallest rectangle that can be drawn whilst ensuring that the entire triangle is within it.<br>
 		<br/>
@@ -71,8 +71,7 @@
 		<br/>
 		Our algorithm computes the bounding box first and exclusively iterates through points that are in that box.
 
-		<br/>
-		<br/>
+		<hr/>
 
 		Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.
 
@@ -108,8 +107,32 @@
 			  </tr>
 			</table> -->
 		</div>
-		
+		<hr/>	
 		<h2>Task 2: Antialiasing by Supersampling</h2>
+		Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.
+
+		<br/>
+		<br/>
+		<b>Ans</b> 
+		<br/>
+		<br/>
+		The main modifications were in the `rasterize_triangle` and `resolve_to_framebuffer` sections of the pipeline. In rasterize_triangle, we increased the sampling frequency by sqrt(sampling rate) times and stored it in our larger resized buffer (this required modifications to the fill_buffer function to account for subpixel samples as well as updating some parameters to the buffer setup and resize functions). When resolving frame buffers, we now account for multiple samples per pixel by adding it all up and dividing them by the number of samples to get the pixel average.
+		<br/>
+		<br/>
+
+		Supersampling is a useful technique for antialiasing. It does so by pretending to have a high resolution screen buffer, and downsampling to match the actual resolution of the screen buffer that we have. This, in effect, creates a low-pass filter which prevents aliasing.
+		<br/>
+		<br/>
+
+		<hr/>
+
+		Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.
+		<br/>		
+		<br/>
+		<b>Ans</b>
+		<br/>
+		<br/>
+
 		<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			<tr>
 			  <td style="text-align: center;">
@@ -128,31 +151,63 @@
 				  </td>
 				</tr>
 		</table>
-
+		<hr/>
 		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		Create an updated version of svg/transforms/robot.svg with cubeman doing something more interesting, like waving or running. Feel free to change his colors or proportions to suit your creativity. Save your svg file as my_robot.svg in your docs/ directory and show a png screenshot of your rendered drawing in your write-up. Explain what you were trying to do with cubeman in words.
+		<br/>
+		<br/>
+		<b>Ans</b>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 		<img src="./images/robot.png" width="600px"/>
 		<figcaption>robot dramatically waving</figcaption>
 		</div>
-		
+		<br/>
 
+		Cube man is doing a very dramatic wave! He is leaning on the right leg putting all his energy into shaking his hand in the left hand. Also we rotated and shifted the right arm down to make it look more natural.
+
+		<hr/>
 		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		Explain barycentric coordinates in your own words and use an image to aid you in your explanation. One idea is to use a svg file that plots a single triangle with one red, one green, and one blue vertex, which should produce a smoothly blended color triangle.
+		<br/>
+		<br/>
+		<b>Ans</b>
+		<br/>
+		<br/>
+		Barycentric coordinates help determine the relative positions of pixels to the object itself. In this project, this is helpful because it lets us interpolate colors of the entire triangle based on the three vertices. As you can see in the image, we only need to specify the colors on the 3 vertex of the triangle. By converting the coordinates to barycentric, we can perform linear interpolation to figure out how to smoothly color the rest of pixels.
 		<div style="display: flex; flex-direction: column; align-items: center;">
-		<img src="./images/task4_1.png" width="600px"/>
-		<figcaption>equilateral triangle with one red, one green, and one blue vertex</figcaption>
+			<img src="./images/task4_1.png" width="600px"/>
+			<figcaption>equilateral triangle with one red, one green, and one blue vertex</figcaption>
 		</div>
+		<br/>
+		<br/>
+		<hr/>
+		Show a png screenshot of svg/basic/test7.svg with default viewing parameters and sample rate 1. If you make any additional images with color gradients, include them.
+		<br/>
+		<br/>
+		<b>Ans</b>
 		
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<img src="./images/task4_2.png" width="600px"/>
 			<figcaption>svg/basic/test7.svg</figcaption>
 			</div>
-
+			<hr/>
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. Briefly discuss the two different pixel sampling methods, nearest and bilinear.
+		<br/>
+		<br/>
+		<b>Ans</b>
+		<br/>
+		<br/>
+		Pixel sampling maps continuous texture coordinates to discrete texel samples. We converted the coordinates of each pixel in the triangle into barycentric coordinates and used that to map each pixel to a color based on sampling method. In “nearest”, we simply chose the discrete texel that was closest to the coordinate. In “bilinear”, we selected the 4 closest texels and performed bilinear interpolation between them to come up with “the average” color. 
+		<br/>
+		<br/>
+		<hr/>
+		Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.
+		<br/>
+		<br/>
+		<b>Ans</b>
+		<br/>
+		<br/>
 		<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			<tr>
 			  <td style="text-align: center;">
@@ -175,14 +230,55 @@
 			  </td>
 			</tr>
 		  </table>
-
+		  <hr/>
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Explain level sampling in your own words and describe how you implemented it for texture mapping.
+		<br/>
+		<br/>
+		<b>Ans</b>
+		<br/>
+		<br/>
+		Level sampling is the method of choosing which texture level to use to prevent aliasing in (usually) 3d scenes where some of the texture might cover more pixels and some of the texture might cover less due to perspective.
+		<br/>
+		<br/>
+		We implemented this by calculating the rate of change of the texture coordinates for each pixel across the screen (using the formula provided in lecture). We then chose the higher rate of change between the x and y axis and computed the mip level (also using the formula from lecture). Finally, depending which mode we were in, we would use that floating point result to select a discrete level to sample from for that pixel.
+		<br/>
+		<br/>
+		<hr/>
+		You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.
+		<br/>
+		<br/>
+		<b>Ans</b>
+		<br/>
+		<br/>
+		Each sampling techniques are like knobs which independently affect speed, memory usage, and antialiasing of the image, so we will analyze them in separate dimensions as such:
+		<br/>
+		<br/>
+		- Increasing the number of samples per pixel, directly improves image quality and reduces aliases. However, it also quadratically increases memory usage and decreases speed. To take twice the samples linearly, we need to sample 4x data points.
+		<br/>
+		<br/>
+		- Bilinear sampling is slightly slower than nearest neighbor sampling and may use more memory (though we feel this is asymptotically negligible). However, bilinear sampling smoother (blurrier), less pixelated image which significantly reduces aliasing in high-detail images
+		<br/>
+		<br/>
+		- Level Zero sampling saves the most memory since we'd only have to store 1 level of texture map, though it causes noticable aliasing for objects in the distance. Nearest level selection is faster than linear level selection and produces a better result than level zero selection. However, linear selection results in the smoothest image quality with the least amount of aliasing since it's much harder to tell when the texture switches from one level to another.
+		<br/>
+		<br/>
+		<hr/>
+		Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR.
+		<br/>
+		To use your own png, make a copy of one of the existing svg files in svg/texmap/ (or create your own modelled after one of the provided svg files). Then, near the top of the file, change the texture filename to point to your own png. From there, you can run ./draw and pass in that svg file to render it and then save a screenshot of your results.
+		<br/>
+		Note: Choose a png that showcases the different sampling effects well. You may also want to zoom in/out, use the pixel inspector, etc. to demonstrate the differences.
+		<br/>
+		<br/>
+		<b>Ans</b>
+		<br/>
+		<br/>
+		<hr/>
 
 		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Additional Notes (please remove)</h2>
+		NA
+		<!-- <h2>Additional Notes (please remove)</h2>
 		<ul>
 			<li>You can also add code if you'd like as so: <code>code code code</code></li>
 			<li>If you'd like to add math equations, 
@@ -191,7 +287,7 @@
 					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
 				</ul>
 			</li>
-		</ul>
+		</ul> -->
 		</div>
 	</body>
 </html>
