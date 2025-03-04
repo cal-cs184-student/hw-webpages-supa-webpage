@@ -182,7 +182,7 @@ similar to Bezier curves and returns a single point.
 			</li>
 			<li>
 				Show screenshots of the teapot before and after some edge flips.<br><br>
-
+				<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
 					<tr>
 					  <td style="text-align: center;">
@@ -218,6 +218,7 @@ similar to Bezier curves and returns a single point.
 						
 					  </tr>
 				</table>
+				</div>
 				<br><br>
 
 
@@ -235,6 +236,7 @@ similar to Bezier curves and returns a single point.
 			</li>
 			<li>
 				Show screenshots of a mesh before and after some edge splits.<br><br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
 				<table>
 				<tr>
 					<td style="text-align: center;">
@@ -269,6 +271,7 @@ similar to Bezier curves and returns a single point.
 					  </td>
 					</tr>
 					</table>
+				</div>
 			</li>
 			<br><br>
 			<li>
@@ -341,6 +344,7 @@ similar to Bezier curves and returns a single point.
 			</li>
 			<li>
 				Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?<br><br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
 				<table>
 					<tr>
 						<td style="text-align: center;">
@@ -373,6 +377,7 @@ similar to Bezier curves and returns a single point.
 
 						  </tr>
 						</table>
+					</div>
 						<br><br>
 				The above screenshots start with a rough torus with few triangle meshes. As we perform loop subdivision, we see that the overall structure becomes smoother eventually looking like a true torus shape. The sharp corners and edges become more round as more vertices are being added from each round of loop subdivision. You can reduce This
 				effect by pre-splitting edges some edges. It will add new vertices which in the case of loop divison, which limits the averaging effect of neighbors. This causes a more sharp figure than smooth.<br><br>
@@ -380,6 +385,7 @@ similar to Bezier curves and returns a single point.
 			<li>
 				Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.<br><br>
 					<h2>not preprocessed cube</h2>
+					<div style="display: flex; flex-direction: column; align-items: center;">
 					<table>
 						<tr>
 							<td style="text-align: center;">
@@ -412,10 +418,12 @@ similar to Bezier curves and returns a single point.
 
 							  </tr>
 							</table>
+							</div>
 							<br><br>
 							<br><br>
 							<h2>preprocessed cube with a split</h2>
 					<table>
+						<div style="display: flex; flex-direction: column; align-items: center;">
 						<tr>
 							<td style="text-align: center;">
 							  <img src="./images/pscubedefault.png" width="500px"/>
@@ -447,7 +455,9 @@ similar to Bezier curves and returns a single point.
 
 							  </tr>
 							</table>
-
+							</li>
+							</ol>
+						</div>
 							<br><br>
 							Here we compare one cube with no pre-processing and one with pre-processing that split one edge on each face. From looking at the final results of both, it is clear that the one without pre-processing is more round adding
 							and asymetrical while the pre-processed cube is symmetrical. The not pre-processed cube is asymmtertic because loop subdivison redistributes vertex positions based on local vertex that become more irregular after each iteration.
