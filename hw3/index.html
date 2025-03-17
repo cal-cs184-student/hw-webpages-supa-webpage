@@ -31,9 +31,8 @@
 		<div style="text-align: center;">Names: </div>
 
 		<br>
-
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to webpage:<a href="https://cal-cs184-student.github.io/hw-webpages-supa-webpage/hw3/index.html">https://cal-cs184-student.github.io/hw-webpages-supa-webpage/hw3/index.html</a>
+		Link to GitHub repository:<a href="https://github.com/cal-cs184-student/sp25-hw3-icicle">https://github.com/cal-cs184-student/sp25-hw3-icicle</a>
 		
 		<figure>
 			<img src="cornell.png" alt="Cornell Boxes with Bunnies" style="width:70%"/>
@@ -48,36 +47,137 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Part 1: Ray Generation and Scene Intersection</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<ol>
+			<li>
+				Walk through the ray generation and primitive intersection parts of the rendering pipeline.
+				<br>
+				<br>
+				<ul>
+					<li>Ray generation:<br>
+						We first convert the pixel index into coordinates on the camera sensor. Based on the camera coordinate, we generate the ray from (0, 0) to that coordinate. We then convert that from camera coordinates to world coordinates by applying the rotation matrix and adjust its origin position.
+					</li>
+					<li>Primitive Intersection:<br>
+						When determining if a ray intersects with an object, we essentially solve a quadratic equation to find the time t in which the ray hits the object. In case of the sphere, there may be 2 interesections, t1 and t2. We then check to see if t is in our ray's range t_min and t_max. If t is less than t_min, the intersection is "behind" the camera sensor so we cannot see it and it doesn't count. If t is greater than t_max, there is an object that's blocking that ray so we don't count that either. For the sphere, we will use the closer intersection that fits the aforementioned condition.
+					</li>
+				  </ul>
+			</li>
+			<li>
+				Explain the triangle intersection algorithm you implemented in your own words.
+				<br>
+				<br>
+				We implemented the Möller-Trumbore algorithm as described in the lecure slide. The algorithm allow us to efficiently solve for the time of intersection, t, as well as the barycentric coordinates which is useful for finding the normal of the intersection point later on. 
+				<br>
+				<br>
+				We first start by defining 2 edges of the triangle E1 and E2 as well as define a vector S which is a ray from the origin to one of the triangle vertices.
+				<br>
+				<br>
+				We then calculate the determinant using cross products by calculating S1 = D x E2 and S2 = S x E1 where D is the direction of the ray. The determinant is S1 \(dot\) E1. 
+				<br>
+				<br>
+				Lastly, we plug it all into the final vector equation which gives us t, b1, and b2.
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<img src="./images/equation.png" width="200px"/>
+				</div>
+
+				
+			</li>
+			<li>
+				Show images with normal shading for a few small .dae files. <br><br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/CBbanana.png" width="600px"/>
+						  <figcaption>dae/keenan/banana.dae</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/CBempty.png" width="600px"/>
+						  <figcaption>dae/sky/CBspheres.dae</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/CBgems.png" width="600px"/>
+						  <figcaption>dae/sky/CBgems.dae</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/CBsphere_lam.png" width="600px"/>
+						  <figcaption>dae/sky/CBspheres_lambertian.dae</figcaption>
+						</td>
+					  </tr>
+					</table>
+				</div>
+
+			</li>
+		</ol>
+		
 		
 		<h2>Part 2: Bounding Volume Hierarchy</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<ol>
+			<li>
+				Walk through your BVH construction algorithm. Explain the heuristic you chose for picking the splitting point.
+				<br>
+				<br>
+				We start by finding the number of elements between the start and the end of the iterator. 
+				<br>
+				<br>
+				If the number of elements fit inside max_leaf_size, we can construct a leaf node, put all the Primitives in and be done.--
+				<br>
+				<br>
+				Otherwise, we have to split the Primitives into 2 sets and recursively construct left and right BVH nodes. To split, we first find the split axis. Our current heuristic is to choose the longest axis.
+				We then sort our primitives based on their centroid position in that axis. We then split the sorted primitives into two groups in the middle.
+				<br>
+				<br>
+			</li>
+			<li>
+				Show images with normal shading for a few large .dae files that you can only render with BVH acceleration. <br><br>
+				
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny.png" width="600px"/>
+						  <figcaption>dae/sky/bunny.dae</figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/planck.png" width="600px"/>
+						  <figcaption>dae/meshedit/maxplanck.dae</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/blucey.png" width="600px"/>
+						  <figcaption>dae/sky/CBlucy.dae</figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/cow.png" width="600px"/>
+						  <figcaption>dae/meshedit/cow.dae</figcaption>
+						</td>
+					  </tr>
+					</table>
+				</div>
+
+
+			</li>
+			<li>
+				Compare rendering times on a few scenes with moderately complex geometries with and without BVH acceleration. Present your results in a one-paragraph analysis.
+				<br>
+				<br>
+				In theory, the BVH acceleration improves run time logarithmicly since we can prune the tree and traverse its depth in logarithmic time. This speed up is reflected in our results. <br>
+				<br>
+				Without the acceleration, cow: 3.9513, blucy: 215.1822s, planck: 112.6359s, bunny: 13.8861 <br>
+				<br>
+				With the acceleration, cow: 0.0437, blucy: 0.0458, planck: 0.05065, bunny: 0.0401 <br>
+				<br>
+				The speed boost is on the scale of 100x. On even larger and more complex renderings, the difference will be even more significant. As we see with blucy and plank, with the optimization, it was a minimal change in time compared to that of bunny, but without the optimization it was a 
+				extremely large difference. 
+			</li>
+
+		</ol>
+
 
 		<h2>Part 3: Direct Illumination</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
