@@ -32,6 +32,7 @@
 
 		<br>
 		Link to webpage:<a href="https://cal-cs184-student.github.io/hw-webpages-supa-webpage/hw3/index.html">https://cal-cs184-student.github.io/hw-webpages-supa-webpage/hw3/index.html</a>
+		<br>
 		Link to GitHub repository:<a href="https://github.com/cal-cs184-student/sp25-hw3-icicle">https://github.com/cal-cs184-student/sp25-hw3-icicle</a>
 		
 		<figure>
@@ -44,8 +45,8 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
+		We beginning our journey with ray generation and primitive intersection. We focused on the intersection with triangles and spheres. After doing this, we recognize that it would be too slow to render any models. We then implemented a BVH structure to speed up the rendering process. We then moved onto direct illumination where we implemented both hemisphere sampling and importance sampling. After implementing direct illumination, we moved onto global illumination that now considers indirect lighting and the bouncing of light after first contact. Lastly, we implemented adaptive sampling to reduce the noise in our images and add efficiency to our rendering process.
+		We definitely learned a lot about the rendering process and see how the theory taught in class can be done in practice.
 		<h2>Part 1: Ray Generation and Scene Intersection</h2>
 		<ol>
 			<li>
@@ -57,10 +58,12 @@
 						We first convert the pixel index into coordinates on the camera sensor. Based on the camera coordinate, we generate the ray from (0, 0) to that coordinate. We then convert that from camera coordinates to world coordinates by applying the rotation matrix and adjust its origin position.
 					</li>
 					<li>Primitive Intersection:<br>
-						When determining if a ray intersects with an object, we essentially solve a quadratic equation to find the time t in which the ray hits the object. In case of the sphere, there may be 2 interesections, t1 and t2. We then check to see if t is in our ray's range t_min and t_max. If t is less than t_min, the intersection is "behind" the camera sensor so we cannot see it and it doesn't count. If t is greater than t_max, there is an object that's blocking that ray so we don't count that either. For the sphere, we will use the closer intersection that fits the aforementioned condition.
+						We primarily did intersections for the primitives spheres and triangles. For the triangle intersection, we implemented the Möller-Trumbore algorithm which is explained below. For the sphere we essentially solve a quadratic equation to find the time t in which the ray hits the object. There may be 2 interesections, t1 and t2. We then check to see if t is in our ray's range t_min and t_max. If t is less than t_min, the intersection is "behind" the camera sensor so we cannot see it and it doesn't count. If t is greater than t_max, there is an object that's blocking that ray so we don't count that either. For the sphere, we will use the closer intersection that fits the aforementioned condition.
 					</li>
 				  </ul>
 			</li>
+
+			<br><br>
 			<li>
 				Explain the triangle intersection algorithm you implemented in your own words.
 				<br>
@@ -93,7 +96,7 @@
 						</td>
 						<td style="text-align: center;">
 						  <img src="./images/CBempty.png" width="600px"/>
-						  <figcaption>dae/sky/CBspheres.dae</figcaption>
+						  <figcaption>dae/sky/CBempty.dae</figcaption>
 						</td>
 					  </tr>
 					  <tr>
@@ -122,7 +125,7 @@
 				We start by finding the number of elements between the start and the end of the iterator. 
 				<br>
 				<br>
-				If the number of elements fit inside max_leaf_size, we can construct a leaf node, put all the Primitives in and be done.--
+				If the number of elements fit inside max_leaf_size, we can construct a leaf node, put all the Primitives in and be done.
 				<br>
 				<br>
 				Otherwise, we have to split the Primitives into 2 sets and recursively construct left and right BVH nodes. To split, we first find the split axis. Our current heuristic is to choose the longest axis.
@@ -180,27 +183,477 @@
 
 
 		<h2>Part 3: Direct Illumination</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 4: Global Illumination</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 5: Adaptive Sampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Part 6: Extra Credit Opportunities</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
+		<ol>
+			<li>
+				Walk through both implementations of the direct lighting function.
+				<br>
+				<br>
+				Hemisphere Sampling
+				<br>
 				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
+					<li>
+						Given an intersection point, we sample a random outgoing vector from the hemisphere (converted to world coordinate)
+					</li>
+					<li>
+						Check if that outgoing ray intersects with a light source. If it does, we apply the illumance to calculate how bright the reflection is (multiply illuminance by the bsdf function, cosine of the angle, and 2pi).
+					</li>
+					<li>
+						Repeat this numsample times and calculate the average reflection illuminance. Here, num sample is calculated by mulitplying the number of lights in the scene by the number of samples per light source which is set by the -l flag.
+					</li>
+				</ul>
+				Note: This process requires more rays than importance sampling since we're just sampling light randomly. If most of the scene is not a light source, the chance of illuminating our point is relatively low.
+				<br>
+				<br>
+				Importance Sampling
+				<ul>
+					<li>
+						Given an intersection point, we sample specifically in directions of lights that exist in the scene.
+					</li>
+					<li>
+						Check if that outgoing ray intersects with another object before it hits our light source. If it does, the object is blocking the light source, so the light source cannot contribute to the direct illumination of the object. If it doesn't, the light source does contribute to the direct illumination of the object. We then plug it into a similar equation to hemisphere sampling (instead of multiplying by 2pi from the hemisphere distribution, we divide by the pdf of the light source sampling instead)
+					</li>
+					<li>
+						Repeat this ns_area_light times for each light source and calculate the average reflection illuminance. If it is a point light source, we only sample once per light source as an optimization to avoid redundancy.
+					</li>
 				</ul>
 			</li>
-		</ul>
-		</div>
+			<br>
+			<br>
+			<li>
+				Show some images rendered with both implementations of the direct lighting function.
+				<br>
+				<br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_H_64_32.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with Hemisphere sampling, l = 32, s = 64 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_64_32.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with Importance sampling, l = 32, s = 64</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/sphere_H_64_32.png" width="600px"/>
+						  <figcaption>dae/sky/CBspheres_lambertian.dae with Hemisphere sampling, l = 32, s = 64 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/sphere_64_32.png" width="600px"/>
+						  <figcaption>dae/sky/CBspheres_lambertian.dae with Importance sampling, l = 32, s = 64</figcaption>
+						</td>
+					  </tr>
+					</table>
+				</div>
+				<br>
+				<br>
+			</li>
+			<li>
+				Focus on one particular scene with at least one area light and compare the noise levels in soft shadows when rendering with 1, 4, 16, and 64 light rays (the -l flag) and with 1 sample per pixel (the -s flag) using light sampling, not uniform hemisphere sampling.
+				<br>
+				<br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_1_1.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with Hemisphere sampling, l = 1, s = 1 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_1_4.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with Importance sampling, l = 4, s = 1</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_1_16.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with Hemisphere sampling, l = 16, s = 1 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_1_64.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with Importance sampling, l = 64, s = 1</figcaption>
+						</td>
+					  </tr>
+					</table>
+				</div>
+				<br>
+				As we can see in the above photos, increasing l or number of samples per area light leads to a less noisy and more accurate image of the bunny.
+				This is due to the lower variance in the Monte Carlo estimator as the number of samples increase. We also see there is softer shadows and edges 
+				comparing l = 1 to l = 64. Lastly, there is definitely a trade off as have more samples increases the rendering time. The first and the last image
+				have a significant difference in the quality of the image, but the l = 64 image is very similar to l = 16. This is a bit of a diminishing return.
+			</li>
+			<br>
+			<br>
+			<li>
+				Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.
+				<br>
+				<br>
+				Hemisphere sampling samples evenly and uniformly over the hemisphere while importance lighting sampling contributes samples in regions that are more important to direct illumnation, such as the direction
+				of the light source of the ceiling of the Cornell Box that decreases variance. As a result we see that the hemisphere sampling has more noise and graining photo shown above with the bunny scene and the ball scene compared to that of 
+				lighting sampling. Also, there are less samples need for the lighting sampling compared to that of the hemisphere sampling to get a similar quality image.
+				
+			</li>
+
+		</ol>
+		<h2>Part 4: Global Illumination</h2>
+		<ol>
+			<li>
+				Walk through your implementation of the indirect lighting function.
+				<br>
+				<br>
+				Below, we will discuss how we implemented the accumulated indirect lighting function first (at least one bounce radiance with is AccumBounce set to true, and no russian roulette). Then we will discuss the minor logic required to handle the case where AccumBounce is set to false.
+				<ul>
+					<li>
+						Given a ray and an intersection point, we first check if the ray's depth is equal to 1. If so, we immediately return one bounce radiance of that intersection. This also acts as the base case for our recursive call which we will discuss later on.</li>
+					<li>
+					</li>
+						Otherwise, we sample a new incoming ray (with -1 depth from the current ray) based on the object's bsdf at the intersection point and find an intersection for this new ray.
+					<li>
+						We then recursively call the at least one bounce radiance function on the new ray and new intersection to get the illuminance from subsequent depths. After returning from the recursive call, we add up the result of that with the direct illumination of the current intersection and the current ray (that was passed into the function) and return the sum.
+					</li>
+				</ul>
+				When AccumBounce is set to false, instead of returning the sum of the resursive call and direct lighting of the current intersection, we only return the former. This means that we'll only return the illuminance of the ray when it's recursed enough such that it's depth is 1.
+				<br>
+				To support russian roulette termination, we only make the recurive call based 7 out of 10 times (p = 0.7). This is implemented with the help of the coin flip function and a random if statement. We also had to adjust our reflection formula to account for this new distribution. Instead of just dividing by the pdf, we had to divide the reflected illumination by both the pdf and the probability of it not terminating (in our case, 0.7).
+			</li>
+			<br>
+				<br>
+			<li>
+				Show some images rendered with global (direct and indirect) illumination. Use 1024 samples per pixel.
+				<br>
+				<br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/spheres_real_part4.png" width="600px"/>
+						  <figcaption>dae/sky/CBspheres_lambertian.dae with global illumination </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_real_part4.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with global illumination</figcaption>
+						</td>
+					  </tr>
+					  
+					</table>
+				</div>
+				<br>
+				<br>
+
+			</li>
+			<li>
+				Pick one scene and compare rendered views first with only direct illumination, then only indirect illumination. Use 1024 samples per pixel. (You will have to edit PathTracer::at_least_one_bounce_radiance(...) in your code to generate these views.)
+				<br>
+				<br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_direct.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with only direct illumination</figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_indirect.png" width="600px"/>
+						  <figcaption>dae/sky/CBbunny.dae with only indirect illumination</figcaption>
+						</td>
+					  </tr>
+					  
+					</table>
+				</div>
+				<br>
+				<br>
+				On the left we see a photo of the bunny scene with only direct illumination which is what was implemented in part 3. This is the light that hits directly from the light. On the right we see the indirect illumination
+				which can be seen as the light that bounces off the walls and other objects in the scene. SInce it is bounces beyond the first bounce, it is seen to be much lighter in color.
+				<br>
+				<br>
+			</li>
+			<li>
+				For CBbunny.dae, render the mth bounce of light with max_ray_depth set to 0, 1, 2, 3, 4, and 5 (the -m flag), and isAccumBounces=false. Explain in your write-up what you see for the 2nd and 3rd bounce of light, and how it contributes to the quality of the rendered image compared to rasterization. 
+				<br>
+				<br>
+				Compare rendered views of accumulated and unaccumulated bounces for CBbunny.dae with max_ray_depth set to 0, 1, 2, 3, 4, and 5 (the -m flag). Use 1024 samples per pixel.
+				<br>
+				<br>
+				<b>CBbunny.dae with isAccumBounces=false.</b>
+				<br>
+				<br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_nonaccum_0.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 0 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_nonaccum_1.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 1</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_nonaccum_2.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 2 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_nonaccum_3.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 3</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_nonaccum_4.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 4 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_nonaccum_5.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 5</figcaption>
+						</td>
+					  </tr>
+					  
+					</table>
+				</div>
+				<br>
+				<br>
+				<b>CBbunny.dae with isAccumBounces=true</b>
+				<br>
+				<br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_accum_0.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 0 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_accum_1.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 1</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_accum_2.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 2 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_accum_3.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 3</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_accum_4.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 4 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_accum_5.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 5</figcaption>
+						</td>
+					  </tr>
+					  
+					</table>
+				</div>
+				<br>
+				<br>
+				First, looking at the 2nd and 3rd bounce of light, we see that the image is obviously not as bright as the 1st bounce or direct bounce of light. We see the 2nd bounce in the photo above give off an ambient glow that gives light to places in the shadow such as that of the ceiling which is not present in the first bounce.
+				The 3rd bounce of light is even dimmer than the 2nd bounce and refines the effect provided in the 2nd bounce by making the light fill the shadows. Overall, the 2nd and 3rd bounce of light contribute to the quality of the rendered image by providing a more realistic and natural lighting effect that is not present in rasterization.
+				<br>
+				<br>
+				When comparing the accumulated and unaccumulated bounce for the CBbunny, we recognize that the accumulated bounce adds the contribution of all bounces up to a set depth while unaccumlated is the contribution for that specific set depth. This means that accumulated provides a more realistic and natural lighting effect
+				while unaccumulated is meant to provide and highlight what the light looks like at a specific bounce depth. Also, by definition, this means that m = 0 is going to be the same for both accumulated and not accumulated. We also see that for depth = 1, the accumulated is the same as unaccumlated except the light on the ceiling.
+
+
+			</li>
+			<br>
+			<br>
+			<li>
+				For CBbunny.dae, output the Russian Roulette rendering with max_ray_depth set to 0, 1, 2, 3, 4, and 100(the -m flag). Use 1024 samples per pixel.
+				<br>
+				<br>
+				<b>CBbunny.dae with Russian Roulette</b>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_russ_0.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 0 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_russ_1.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 1</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_russ_2.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 2 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_russ_3.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 3</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_russ_4.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 4 </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_russ_100.png" width="600px"/>
+						  <figcaption>CBbunny.dae with max_ray_depth set to 100</figcaption>
+						</td>
+					  </tr>
+					  
+					</table>
+				</div>
+				<br>
+				<br>
+			</li>
+			<li>
+				Pick one scene and compare rendered views with various sample-per-pixel rates, including at least 1, 2, 4, 8, 16, 64, and 1024. Use 4 light rays.
+				<br>
+				<br>
+				<b>CBbunny.dae with various sample-per-pixel rates, max depth = 5, and 4 light rays</b>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_sample_1.png" width="600px"/>
+						  <figcaption>CBbunny.dae with 1 sample-per-pixel</figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_sample_2.png" width="600px"/>
+						  <figcaption>CBbunny.dae with 2 sample-per-pixel</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_sample_4.png" width="600px"/>
+						  <figcaption>CBbunny.dae with 4 sample-per-pixel </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_sample_8.png" width="600px"/>
+						  <figcaption>CBbunny.dae with 8 sample-per-pixel</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_sample_16.png" width="600px"/>
+						  <figcaption>CBbunny.dae with 16 sample-per-pixel </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_sample_64.png" width="600px"/>
+						  <figcaption>CBbunny.dae with 64 sample-per-pixel</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_sample_1024.png" width="600px"/>
+						  <figcaption>CBbunny.dae with 1024 sample-per-pixel </figcaption>
+						</td>
+
+						
+					  </tr>
+					  
+					</table>
+					<br>
+				<br>
+
+					Comparing the different sample-per-pixel rates, we see that the image quality as the number of sample-per-pixel increases gets much and much better. With only 1 sample-per-pixel, the image is very noisy and grainy
+					as each pixel is determined by a single light ray. This leads to an image that has basically no structure. As the sample-per-pixel increases, the image becomes more and more clear and the noise decreases, since with more samples
+					it gives more accurate lighting details. At 1024 sample-per-pixel, we see that there is very minimal noise.
+					<br>
+				<br>
+			</li>
+
+
+		</ol>
+
+		<h2>Part 5: Adaptive Sampling</h2>
+		<ol>
+			<li>
+				Explain adaptive sampling. Walk through your implementation of the adaptive sampling.
+				<br>
+				<br>
+				<ul>
+				These are the changes that we made to raytrace pixel to enable adaptive sampling. 
+				<li>
+					We added 3 variables to keep track of the sum of illuminance, the sum of illuminance squared, and the number of samples we've taken so far
+				<li>
+					We still use the same loop where we sample ns_aa times, though we may now exit the loop early if some conditions are met (described  below)
+				</li>
+				<li>
+					After we recieve the radiance from est_radiance_global_illumination, we calculate the illumination and update the 3 new variables accordingly.
+				</li>
+				<li>
+					We then check if the sample we've just taken is divisble by samplesPerBatch. If so, we plug our sum of illuminance and sum of illuminance squared that we've accumulated so far into the formula given in the spec to calculate I. If I is less than or equal to the maxTolerance times mu, we exit the loop.
+				</li>
+				<li>
+					After the loop, we still do everything we did before except when calculating the average radiance, we now divide by the number of samples we've taken so far instead of ns_aa since the loop mightve terminated early. 
+				</li>
+			</ul>
+
+			</li>
+			<br>
+			<br>
+			<li>
+				Pick two scenes and render them with at least 2048 samples per pixel. Show a good sampling rate image with clearly visible differences in sampling rate over various regions and pixels. Include both your sample rate image, which shows your how your adaptive sampling changes depending on which part of the image you are rendering, and your noise-free rendered result. Use 1 sample per light and at least 5 for max ray depth.
+				<br>
+				<br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/sphere_part5.png" width="600px"/>
+						  <figcaption>CBspheres_lambertian.dae with adaptive sampling </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/sphere_part5_rate.png" width="600px"/>
+						  <figcaption>CBspheres_lambertian.dae sample rate image</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bunny_part5.png" width="600px"/>
+						  <figcaption>CBbunny.dae with adaptive sampling </figcaption>
+						</td>
+
+						<td style="text-align: center;">
+						  <img src="./images/bunny_part5_rate.png" width="600px"/>
+						  <figcaption>CBbunny.dae with sample rate image</figcaption>
+						</td>
+					  </tr>
+					  
+					</table>
+				</div>
+				<br>
+				<br>
+			</li>
+			
+		
+
+		<h2>(Optional) Part 6: Extra Credit Opportunities</h2>
+		N/A
+		
 	</body>
 </html>
