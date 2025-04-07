@@ -100,8 +100,297 @@
 		</li>
 	</ol>
 		<h2>Part 2: Simulation via numerical integration</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<ol>
+		<li>
+			Experiment with some the parameters in the simulation. To do so, pause the simulation at the start with P, modify the values of interest, and then resume by pressing P again. You can also restart the simulation at any time from the cloth’s starting position by pressing R. <br><br>
 
+			<h3> Default parameters</h3> <br><br>
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				  <tr>
+					<td style="text-align: center;">
+					  <img src="./images/part2_default1.png" width="500px"/>
+					  <figcaption>scene/pinned2.json start of simulation</figcaption>
+					</td>
+					<td style="text-align: center;">
+					  <img src="./images/part2_default2.png" width="500px"/>
+					  <figcaption>scene/pinned2.json during of simulation #1</figcaption>
+					</td>
+				  </tr>
+				  <tr>
+					<td style="text-align: center;">
+					  <img src="./images/part2_default3.png" width="500px"/>
+					  <figcaption>scene/pinned2.json during of simulation #2</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="./images/part2_default4.png" width="500px"/>
+						<figcaption>scene/pinned2.json rest state</figcaption>
+					  </td>
+				  </tr>
+				</table>
+			</div>
+
+			<br><br>
+
+			<ul>
+
+				<li>Describe the effects of changing the spring constant ks; how does the cloth behave from start to rest with a very low ks? A high ks?	<br> <br>
+					<h3> Low ks pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowks1.png" width="500px"/>
+							  <figcaption>low ks scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowks2.png" width="500px"/>
+							  <figcaption>low ks scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowks3.png" width="500px"/>
+							  <figcaption>low ks scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_lowks4.png" width="500px"/>
+								<figcaption>low ks scene/pinned2.json rest state</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+
+					<h3> high ks pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highks1.png" width="500px"/>
+							  <figcaption>high ks scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highks2.png" width="500px"/>
+							  <figcaption>high ks scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highks3.png" width="500px"/>
+							  <figcaption>high ks scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_highks4.png" width="500px"/>
+								<figcaption>high ks scene/pinned2.json rest state</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+
+					When the ks of the springs is low, the springs have very low resistance to stretching. As such the clotch will become very loose and drapey. If we compare the default parameter where the ks is 
+					5000 N/m and the low ks is only 100 N/m, we see that the cloth of the low ks sags way more than the default. Also during the simulation process, the cloth of the low ks develops much more wrinkles.
+					As for the high ks of 100000 N/m, the springs become more stiff leading to a very regid cloth. We can see this when comparing it to the low ks and default ks where the rest state has minimal wrinkles and
+					sagging. When looking at the simulation process, we see that the cloth seems relatively flat.
+					<br><br>
+				</li>
+
+				<li>What about for density?
+				
+					<br> <br>
+					<h3> Low density pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowdensity1.png" width="500px"/>
+							  <figcaption>low density scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowdensity2.png" width="500px"/>
+							  <figcaption>low density scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowdensity3.png" width="500px"/>
+							  <figcaption>low density scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_lowdensity4.png" width="500px"/>
+								<figcaption>low density scene/pinned2.json rest state</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+					<h3> High density pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highdensity1.png" width="500px"/>
+							  <figcaption>high density scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highdensity2.png" width="500px"/>
+							  <figcaption>high density scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highdensity3.png" width="500px"/>
+							  <figcaption>high density scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_highdensity4.png" width="500px"/>
+								<figcaption>high density scene/pinned2.json rest state</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+					
+					A high or low density will affect the mass of each point mass. A high density means that the point masses will be heavier while a low density will mean that the point masses will be lighter. When comparing both the low density (1 g/cm^2)
+					and the default we see that the low density is much less saggy and drapey throughout the entire simulation. This is because the point masses are much lighter leading weaker forces acting on them. When looking at the high density (100 g/cm^2), we see that
+					the cloth is much more saggy and drapey. This is because the point masses are much heavier leading to stronger forces acting on them. We can see this when comparing the rest state of the default and high density where the high density has a lot more wrinkles, especially in the top 
+					middle of the cloth.
+
+					<br><br>
+
+				</li>
+
+
+				<li>What about for damping?
+
+				<br> <br>
+					<h3> Low damping pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowdamp1.png" width="500px"/>
+							  <figcaption>low damping scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowdamp2.png" width="500px"/>
+							  <figcaption>low damping scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowdamp3.png" width="500px"/>
+							  <figcaption>low damping scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_lowdamp4.png" width="500px"/>
+								<figcaption>low damping scene/pinned2.json simulation #3</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+
+					<h3> High damping pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highdamp1.png" width="500px"/>
+							  <figcaption>high damping scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highdamp2.png" width="500px"/>
+							  <figcaption>high damping scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highdamp3.png" width="500px"/>
+							  <figcaption>high damping scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_highdamp4.png" width="500px"/>
+								<figcaption>high damping scene/pinned2.json rest state</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+
+					damping is the amount of energy lost in the system from timestep to timestep. A low damping means that the system will lose very little energy and will take a long time to come to rest. When looking at the low damping(0) simulation above, There are definitely more ripples than that of the default. Also since with 0, there is no energy lost and will take an extremely long time 
+					to reach a rest state compared to the default. As for the high damping (0.8), we see that it looks very similar to the default. There is more energy lost in the system leading to less ripples during the simulation and reaching a stable rest state.
+					<br><br>
+				</li>
+
+				<li>gravity: acceleration due to gravity
+					<br> <br>
+					<h3> Low gravity pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowgravity1.png" width="500px"/>
+							  <figcaption>low gravity scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowgravity2.png" width="500px"/>
+							  <figcaption>low gravity scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_lowgravity3.png" width="500px"/>
+							  <figcaption>low gravity scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_lowgravity4.png" width="500px"/>
+								<figcaption>low gravity scene/pinned2.json rest state</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+
+					<h3> High gravity pinned2 simulation</h3>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<table style="width: 100%; text-align: center; border-collapse: collapse;">
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highgravity1.png" width="500px"/>
+							  <figcaption>high gravity scene/pinned2.json start of simulation</figcaption>
+							</td>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highgravity2.png" width="500px"/>
+							  <figcaption>high gravity scene/pinned2.json during of simulation #1</figcaption>
+							</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center;">
+							  <img src="./images/part2_highgravity3.png" width="500px"/>
+							  <figcaption>high gravity scene/pinned2.json during of simulation #2</figcaption>
+							</td>
+							<td style="text-align: center;">
+								<img src="./images/part2_highgravity4.png" width="500px"/>
+								<figcaption>high gravity scene/pinned2.json rest state</figcaption>
+							  </td>
+						  </tr>
+						</table>
+					</div> <br><br>
+
+					gravity on the point masses will affect the amount of force acting on each point mass and the cloth overall. For a low gravity of (-1.5 m/s^2), comparing to the default of -9.8 m/s^2, we see that it is less drapey and saggy.
+					This is because with less gravity, the amount of force pointing downwards is less. For the high gravity of (-20 m/s^2), we see that the cloth is much more drapey and saggy. This is because with more gravity, the amount of force pointing downwards is more. We can see this when comparing the rest state of the default and high gravity where the high gravity has a lot more wrinkles, especially in the top middle of the cloth.
+					<br><br>
+				</li>
+			<li>
+				Show us a screenshot of your shaded cloth from scene/pinned4.json in its final resting state! If you choose to use different parameters than the default ones, please list them.
+
+				<br> <br>
+
+				<figure>
+					<img src="./images/Part2_pinned4.png" style="width:100%"/>
+				</figure>
+
+			</li>
+
+
+			</ul>
+		</li>
+		</ol>
 		<h2>Part 3: Handling collisions with other objects</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
