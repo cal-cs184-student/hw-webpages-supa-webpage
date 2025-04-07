@@ -395,7 +395,41 @@
 		<ol>
 			<li> 
 				Describe your implementation of handling collisions with spheres and planes.
+				<br>
+				<br>
+				Sphere:
+				<br>
+				<ol>
+					<li>
+						Detection: We calculate the vector from the sphere’s center to the point mass’s current position. If the norm of this vector is less than the sphere’s radius, it means the point mass is either intersecting or completely inside the sphere.
+					</li>
+					<li>
+						Computing the Tangent Point: When a collision is detected, we calculate the position where the point mass should be on the sphere’s surface. This is done by normalizing the vector from the sphere’s center to the point mass and then scaling it by the sphere’s radius. 
+					</li>
+					<li>
+						Correcting the Position: We then calculate the correction vector from the point mass’ last valid position to this tangent point and update the point mass’ position by moving it along this correction vector, but scaled down by the factor (1 – f), where f is the friction coefficient. This scaling ensures that the collision response takes friction into account.
+					</li>
+				</ol>
+				<br>
+				Planes:
+				<br>
+				<ol>
+					<li>
+						Detection: We use the plane’s normal and a known point on the plane to compute dot products for both the point mass’s (last_position) and its current position. If these dot products have opposite signs or one of them is zero, it means that the point mass has crossed the plane between the last update and the current one.
+					</li>
+					<li>
+						Computing the Intersection: Using the difference in the dot products, we determine a parameter t that tells us how far along the segment from last_position to position the plane was intersected. This gives us the exact intersection (or tangent) point on the plane.
+					</li>
+					<li>
+						Bumping Off the Plane: To prevent numerical issues or the point mass from getting stuck exactly on the plane, we add a small offset (defined by SURFACE_OFFSET) in the direction fo the normal of the intersection point.
+					</li>
+					<li>
+						Correcting the Position: Like the sphere, we then compute the correction vector from the point mass’s last position to this adjusted intersection point and update its position using the friction-adjusted correction vector, i.e., by moving it from the last position along the correction vector scaled by (1 – f).
+					</li>
+				</ol>
 			</li>
+			<br>
+			<br>
 
 			<li> 
 				Show us screenshots of your shaded cloth from scene/sphere.json in its final resting state on the sphere using the default ks = 5000 as well as with ks = 500 and ks = 50000. Describe the differences in the results.
@@ -439,7 +473,20 @@
 		<ol>
 			<li> 
 				Describe your implementation of handling self-collisions.
+				<br>
+				<br>
+				Instead of looping through every point mass of the cloth and figuring out if they pair-wise collided at every given timestep, we implemented a hash-based approach to decrease the size of point mass subsets that we need to compare point masses to.
+				<br>
+				<br>
+				In each time step, we hash each point mass into different groups based on their position, using bounding boxes. Points that are close together and has the potential to collide will be hashed into the same bucket whilst points far from each other will be hashed into different buckets to save us time from considering them later on.
+				<br>
+				<br>
+				After building a hash table based on the description above, we call the self_collide function on every point mass, which does the following:
+				<br>
+				<br>
+				It calculates a hash based on the point mass’s position and retrieves nearby point masses from that bucket. Note that the hash function here is the same as the one that we used to build the hash table in the first place. For each candidate (excluding itself), it checks if the candidate is within a collision threshold (defined as 2 times the cloth’s thickness). If so, it computes a correction vector that would push the point mass away from the candidate just enough to resolve the overlap. These correction vectors are accumulated, averaged, and then scaled by the number of simulation steps to ensure smooth adjustments. Finally, the averaged correction is applied to the point mass’s position, reducing the overlap and preventing self-collisions.
 			</li>
+			<br>
 
 			<li> 
 				Show us at least 3 screenshots that document how your cloth falls and folds on itself, starting with an early, initial self-collision and ending with the cloth at a more restful state (even if it is still slightly bouncy on the ground).
