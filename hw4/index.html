@@ -524,21 +524,50 @@
 			</li>
 		</ol>
 		<h2>Part 5: Shaders</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Part 6: Extra Credit - Additional cloth simulation features!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
+		<ol>
+			<li>
+				Explain in your own words what is a shader program and how vertex and fragment shaders work together to create lighting and material effects.
+				<br>
+				<br>
+				A shader program is a collection of instructions that run on the GPU, essentially telling it how to process graphics data. It can be broken down into 2 parts:
 				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
+					<li>
+						Vertex Shader: <br>
+						The vertex shader is the starting point. It processes each vertex of a 3D model one by one, transforming vertex positions from model space to world space and to screen space. It also handles other data like normals, texture coordinates, and tangents. This processed data is then passed on to the fragment shader.
+					</li>
+					<li>
+						Fragment Shader: <br>
+						The fragment shader computes the final color of every pixel. It takes in the interpolated data from the vertex shader and applies lighting models and other material effects (eg. Blinn-Phong shading, glossy surfaces, etc).
+					</li>
 				</ul>
 			</li>
-		</ul>
+			<li>
+				Explain the Blinn-Phong shading model in your own words. Show a screenshot of your Blinn-Phong shader outputting only the ambient component, a screen shot only outputting the diffuse component, a screen shot only outputting the specular component, and one using the entire Blinn-Phong model.
+				<br>
+				<br>
+				The Blinn-Phong shading model breaks down object shading into 3 components, which are ultimately combined/overlayed together:
+				<ul>
+					<li>
+						Ambient: This is a constant light (indirect illumination), giving the object a basic level of brightness even when it’s not directly lit.
+					</li>
+					<li>
+						Diffuse: This calculates how much light hits a surface based on the angle between the light and the surface’s normal. It follows Lambert’s cosine law, which means the intensity decreases as the angle between the light direction and the surface normal increases.
+					</li>
+					<li>
+						Specular: We first calculate the halfway vector which is the normalized sum of the light direction and the viewer’s direction.  The closer the surface normal is to this halfway vector, the brighter the specular highlight appears, controlled by a specular exponent that adjusts the sharpness of the highlight.
+					</li>
+				</ul> 
+			</li>
+			<li>
+				Show a screenshot of your texture mapping shader using your own custom texture by modifying the textures in /textures/.
+			</li>
+			<li>
+				Show a screenshot of bump mapping on the cloth and on the sphere. Show a screenshot of displacement mapping on the sphere. Use the same texture for both renders. You can either provide your own texture or use one of the ones in the textures directory, BUT choose one that’s not the default texture_2.png. Compare the two approaches and resulting renders in your own words. Compare how your the two shaders react to the sphere by changing the sphere mesh’s coarseness by using -o 16 -a 16 and then -o 128 -a 128.
+			</li>
+			<li>
+				Show a screenshot of your mirror shader on the cloth and on the sphere.	
+			</li>
+		</ol>
 		</div>
 	</body>
 </html>
