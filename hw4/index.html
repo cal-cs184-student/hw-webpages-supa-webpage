@@ -392,11 +392,90 @@
 		</li>
 		</ol>
 		<h2>Part 3: Handling collisions with other objects</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<ol>
+			<li> 
+				Describe your implementation of handling collisions with spheres and planes.
+			</li>
 
+			<li> 
+				Show us screenshots of your shaded cloth from scene/sphere.json in its final resting state on the sphere using the default ks = 5000 as well as with ks = 500 and ks = 50000. Describe the differences in the results.
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/Part3_default.png" width="500px"/>
+						  <figcaption>scene/sphere.json with ks = 5000</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/part3_500ks.png" width="500px"/>
+						  <figcaption>scene/sphere.json with ks = 500</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/part3_50000ks.png" width="500px"/>
+						  <figcaption>scene/sphere.json with ks = 50000</figcaption>
+						</td>
+						
+					  </tr>
+					</table>
+				</div> <br><br>
+
+				Comparing the different ks above, we see that the default provide the most realistic simulation of a cloth on the sphere. There is a good amount of wrinkles and sagging as well as tension within the cloth. As
+				for the ks = 500, we see that it is very loose and drapey. This is because a lower ks leads to this as the springs are not as stiff and has less tension. Finally, for the ks = 50000, we see that the cloth is more rigid and has less wrinkles. This is because 
+				the spring has much higher tension that prevents it from draping.
+				<br><br>
+			</li>
+
+			<li>
+				Show us a screenshot of your shaded cloth lying peacefully at rest on the plane. If you haven’t by now, feel free to express your colorful creativity with the cloth! (You will need to complete the shaders portion first to show custom colors.)
+				<figure>
+					<img src="./images/part3_plane.png" style="width:100%"/>
+				</figure>
+			</li>
+		</ol>
 		<h2>Part 4: Handling self-collisions</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+		<ol>
+			<li> 
+				Describe your implementation of handling self-collisions.
+			</li>
+
+			<li> 
+				Show us at least 3 screenshots that document how your cloth falls and folds on itself, starting with an early, initial self-collision and ending with the cloth at a more restful state (even if it is still slightly bouncy on the ground).
+			</li>
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				  <tr>
+					<td style="text-align: center;">
+					  <img src="./images/part4_early.png" width="500px"/>
+					  <figcaption>self collision at early stage</figcaption>
+					</td>
+					<td style="text-align: center;">
+					  <img src="./images/part4_middle.png" width="500px"/>
+					  <figcaption>self collision at intermediate stage #1</figcaption>
+					</td>
+				  </tr>
+				  <tr>
+					<td style="text-align: center;">
+					  <img src="./images/part4_inter2.png" width="500px"/>
+					  <figcaption>self collision at intermediate state #2</figcaption>
+					</td>
+
+					<td style="text-align: center;">
+						<img src="./images/part4_end.png" width="500px"/>
+						<figcaption>self collision at restful state</figcaption>
+					  </td>
+					
+				  </tr>
+				</table>
+			</div> <br><br>
+
+			<li> 
+				Vary the density as well as ks and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.
+			</li>
+		</ol>
 		<h2>Part 5: Shaders</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
