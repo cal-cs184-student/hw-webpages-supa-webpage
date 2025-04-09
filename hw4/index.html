@@ -45,8 +45,7 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
+		In this assigment, we mainly determined ways of creating and representing actual physical interactions through computer simulation. We mainly focused on simulating a cloth, by first representing it with point masses and springs. When used this to interact with other objects and determined what a collision would realistically look like through simulation. We then explored self collision, so that the cloth would be able to interact with itself. Finally, we added shaders to our cloth simulation to make it look different rather than just unrealistic colors.
 		<h2>Part 1: Masses and springs</h2>
 		<ol> 
 		<li>
@@ -520,7 +519,116 @@
 			</div> <br><br>
 
 			<li> 
-				Vary the density as well as ks and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.
+				Vary the density as well as ks and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself. <br><br>
+
+				<h3>low density simulation</h3>
+
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/task4_lowdense1.png" width="500px"/>
+						  <figcaption>low density self collision at early stage</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/task4_lowdense2.png" width="500px"/>
+						  <figcaption>low density self collision at intermediate stage</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/task4_lowdense3.png" width="500px"/>
+							<figcaption>low density self collision at restful state</figcaption>
+						  </td>
+						
+					  </tr>
+					</table>
+				</div> <br><br>
+
+				<h3>high density simulation</h3>
+
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/task4_highdensity1.png" width="500px"/>
+						  <figcaption>high density self collision at early stage</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/task4_highdensity2.png" width="500px"/>
+						  <figcaption>high density self collision at intermediate stage</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/task4_highdensity3.png" width="500px"/>
+							<figcaption>high density self collision at restful state</figcaption>
+						  </td>
+						
+					  </tr>
+					</table>
+				</div> <br><br>
+
+				<h3>low ks simulation</h3>
+
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/part4_lowks1.png" width="500px"/>
+						  <figcaption>low ks self collision at early stage</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/part4_lowks2.png" width="500px"/>
+						  <figcaption>low ks self collision at intermediate stage</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/part4_lowks3.png" width="500px"/>
+							<figcaption>low ks self collision at restful state</figcaption>
+						  </td>
+						
+					  </tr>
+					</table>
+				</div> <br><br>
+
+				
+
+				<h3>high ks simulation</h3>
+
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/task4_highks1.png" width="500px"/>
+						  <figcaption>high ks self collision at early stage</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/task4_highks2.png" width="500px"/>
+						  <figcaption>high ks self collision at intermediate stage</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/task4_highks3.png" width="500px"/>
+							<figcaption>high ks self collision at restful state</figcaption>
+						  </td>
+						
+					  </tr>
+					</table>
+				</div> <br><br>
+
+				For density, we see that each point mass weights less which leads to an overall lighter cloth. When looking at the picture, we see that the collision is very flappy and not compact. The final rest position has a very loose fold compared to the default density.
+				As for high density, we know that the point masses are heavier which leads to a heavier cloth overall. When looking at the picture, there are definitely more creases compared to the low density, and the final rest position is much more compact rather than loose.
+				<br><br>
+				For the ks, we see that the low ks of 500 makes the springs looser leading to an overall more soft cloth. There are more folds,sagging, and wrinkles compared to the default ks. The final rest position is also much more drapey. With a high ks of 50000, we see that the cloth is much 
+				more stiff and rigid. There are minimal folds and wrinkles throughout the cloth throughout the self collision simulation. The final rest position has a flatter cloth compared to the default and low ks.
+				<br><br>
 			</li>
 		</ol>
 		<h2>Part 5: Shaders</h2>
@@ -557,15 +665,167 @@
 						Specular: We first calculate the halfway vector which is the normalized sum of the light direction and the viewer’s direction.  The closer the surface normal is to this halfway vector, the brighter the specular highlight appears, controlled by a specular exponent that adjusts the sharpness of the highlight.
 					</li>
 				</ul> 
+
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/ambient_only.png" width="500px"/>
+						  <figcaption>ambient only blinn-phong of scene/sphere.json</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/diffuse_only.png" width="500px"/>
+						  <figcaption>diffuse only blinn-phong of scene/sphere.json</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/specular_only.png" width="500px"/>
+							<figcaption>specular only blinn-phong of scene/sphere.json</figcaption>
+						  </td>
+
+						  <td style="text-align: center;">
+							<img src="./images/combined_all.png" width="500px"/>
+							<figcaption>blinn-phong of scene/sphere.json</figcaption>
+						  </td>
+						
+					  </tr>
+					</table>
+				</div> <br><br>
 			</li>
 			<li>
 				Show a screenshot of your texture mapping shader using your own custom texture by modifying the textures in /textures/.
+				<figure>
+					<img src="./images/task4_custom.png" style="width:100%"/>
+				</figure>
+
 			</li>
 			<li>
 				Show a screenshot of bump mapping on the cloth and on the sphere. Show a screenshot of displacement mapping on the sphere. Use the same texture for both renders. You can either provide your own texture or use one of the ones in the textures directory, BUT choose one that’s not the default texture_2.png. Compare the two approaches and resulting renders in your own words. Compare how your the two shaders react to the sphere by changing the sphere mesh’s coarseness by using -o 16 -a 16 and then -o 128 -a 128.
+				<h3> bump and displacement with coarseness -o 16 -a 16</h3>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/16_16_bump.png" width="500px"/>
+						  <figcaption>bump mapping of the cloth</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/16_16_bump_sphere.png" width="500px"/>
+						  <figcaption>bump mapping of the sphere</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/16_16_displacement.png" width="500px"/>
+							<figcaption>displacement mapping of the cloth</figcaption>
+						  </td>
+
+						  <td style="text-align: center;">
+							<img src="./images/16_16_displacement_sphere.png" width="500px"/>
+							<figcaption>displacement mapping of the cloth</figcaption>
+						  </td>
+
+						  
+					  </tr>
+
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/16_16_bump_plane.png" width="500px"/>
+							<figcaption>bump mapping of the cloth horizontally</figcaption>
+						  </td>
+
+						  <td style="text-align: center;">
+							<img src="./images/16_16_dis_plane.png" width="500px"/>
+							<figcaption>displacement mapping of the cloth horizontally</figcaption>
+						  </td>
+
+						  
+					  </tr>
+					</table>
+				</div> <br><br>
+
+				<h3> bump and displacement with coarseness -o 128 -a 128</h3>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/bump_128_128.png" width="500px"/>
+						  <figcaption>bump mapping of the cloth</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/bump_sphere_128_128.png" width="500px"/>
+						  <figcaption>bump mapping of the sphere</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/displacement_128_128.png" width="500px"/>
+							<figcaption>displacement mapping of the cloth</figcaption>
+						  </td>
+
+						  <td style="text-align: center;">
+							<img src="./images/displacement_128_128_sphere.png" width="500px"/>
+							<figcaption>displacement mapping of the sphere</figcaption>
+						  </td>
+
+				
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/128_128_displacement_plane.png" width="500px"/>
+							<figcaption>bump mapping of the cloth horizontally</figcaption>
+						  </td>
+
+						  <td style="text-align: center;">
+							<img src="./images/128_128_horizontal_view_displacement.png" width="500px"/>
+							<figcaption>displacement mapping of the cloth horizontally</figcaption>
+						  </td>
+
+				
+					  </tr>
+					</table>
+				</div> <br><br>
+
+				For bump mapping, we change the normal vector instead of the object rather than the actual geometry of the object. As a result there is an illusion of having bumps. When we look at the result
+				of bump mapping, we see that there appears to be bumps on the cloth and sphere that is based on the brick texture given. As for displacement mapping, the position of the vertices are adjusted as 
+				well as the normal of the object. When comparing the two, they look similar, but in certain perspectives we can see that the bump map is still flat while the displacement map seems to have actual bumps.
+
+				When comparing the two coarseness, we see that the the -o 16 -a 16 is much more bumpy when looking at the cloth horizontally for the displacement mapping. The -o 128 -a 128 is much more smooth and fine on the other hand which would make sense.
+				For the bump mapping, we see that the coarseness doesn't really affect the objects as much as displacement mapping as no actual vertex position are changing.
 			</li>
 			<li>
 				Show a screenshot of your mirror shader on the cloth and on the sphere.	
+				<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					  <tr>
+						<td style="text-align: center;">
+						  <img src="./images/mirror_sphere.png" width="500px"/>
+						  <figcaption>mirror shader of sphere only</figcaption>
+						</td>
+						<td style="text-align: center;">
+						  <img src="./images/mirror_plane.png" width="500px"/>
+						  <figcaption>mirror shader of plane only</figcaption>
+						</td>
+					  </tr>
+					  <tr>
+	
+						<td style="text-align: center;">
+							<img src="./images/mirror_collision.png" width="500px"/>
+							<figcaption>mirror shader of cloth on sphere</figcaption>
+						  </td>
+
+
+
+				
+					  </tr>
+					</table>
+				</div> <br><br>
 			</li>
 		</ol>
 		</div>
